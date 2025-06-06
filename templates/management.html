@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management - IT Asset Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Asset Management System</a>
+            <span class="navbar-text">Management Panel</span>
+            <div class="d-flex ms-auto">
+                <a href="/home" class="btn btn-outline-primary me-2">Home</a>
+                <a href="../auth/logout" class="btn btn-outline-secondary" onclick="return confirmLogout()">Logout</a>
+                <script>
+                    function confirmLogout() {
+                        return confirm("Are you sure you want to log out?");
+                    }
+                </script>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Users Card -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5>Users</h5>
+                <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" data-type="user">
+                    <i class="bi bi-plus"></i> Add User
+                </button>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>UserID</th>
+                            <th>Forename</th>
+                            <th>Surname</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user['UserID'] }}</td>
+                            <td>{{ user['Forename'] }}</td>
+                            <td>{{ user['Surname'] }}</td>
+                            <td>{{ user['Username'] }}</td>
+                            <td>{{ user['Password'] }}</td>
+                            <td>{{ user['Role'] }}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-button" data-type="user"
+                                    data-id="{{ user['UserID'] }}" data-row="{{ loop.index }}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-button" data-type="user"
+                                    data-id="{{ user['UserID'] }}">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Assets Card -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5>Assets</h5>
+                <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addModal"
+                    data-type="asset">
+                    <i class="bi bi-plus"></i> Add Asset
+                </button>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>AssetID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asset in assets %}
+                        <tr>
+                            <td>{{ asset['AssetID'] }}</td>
+                            <td>{{ asset['Name'] }}</td>
+                            <td>{{ asset['Type'] }}</td>
+                            <td>{{ asset['Status'] }}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-button" data-type="asset"
+                                    data-id="{{ asset['AssetID'] }}" data-row="{{ loop.index }}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-button" data-type="asset"
+                                    data-id="{{ asset['AssetID'] }}">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Loans Card -->
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                <h5>Loans</h5>
+                <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" data-type="loan">
+                    <i class="bi bi-plus"></i> Add Loan
+                </button>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>LoanID</th>
+                            <th>AssetID</th>
+                            <th>UserID</th>
+                            <th>LoanDate</th>
+                            <th>DueDate</th>
+                            <th>ReturnDate</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for loan in loans %}
+                        <tr>
+                            <td>{{ loan['LoanID'] }}</td>
+                            <td>{{ loan['AssetID'] }}</td>
+                            <td>{{ loan['UserID'] }}</td>
+                            <td>{{ loan['LoanDate'] }}</td>
+                            <td>{{ loan['DueDate'] }}</td>
+                            <td>{{ loan['ReturnDate'] }}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-button" data-type="loan"
+                                    data-id="{{ loan['LoanID'] }}" data-row="{{ loop.index }}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-button" data-type="loan"
+                                    data-id="{{ loan['LoanID'] }}">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="recordId">
+                        <input type="hidden" id="recordType">
+                        <div id="formFields"></div>
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add New Record</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addForm">
+                        <input type="hidden" id="addRecordType">
+                        <div id="addFormFields"></div>
+                        <button type="submit" class="btn btn-primary mt-3">Add Record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/management.js"></script>
+</body>
+
+</html>

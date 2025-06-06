@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<!-- Main Content -->
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <!-- Login/Signup Card -->
+    <div class="card shadow p-4" style="width: 400px;">
+        <ul class="nav nav-tabs mb-3" id="authTabs" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+                    role="tab" aria-controls="login" aria-selected="true">Login</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button"
+                    role="tab" aria-controls="signup" aria-selected="false">Signup</button>
+            </li>
+        </ul>
+        <!-- Tabs -->
+        <div class="tab-content" id="authTabsContent">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                <h1 class="text-center mb-4">Login</h1>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" id="username" class="form-control"
+                            placeholder="Enter your username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">Login</button>
+                </form>
+                <div id="loginMessage" class="text-danger mt-3 text-center" style="display: none;">
+                    Login failed. Please try again.
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                <h1 class="text-center mb-4">Signup</h1>
+                <form id="signupForm">
+                    <div class="mb-3">
+                        <label for="signupForename" class="form-label">Forename</label>
+                        <input type="text" name="forename" id="signupForename" class="form-control"
+                            placeholder="Enter your forename" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupSurname" class="form-label">Surname</label>
+                        <input type="text" name="surname" id="signupSurname" class="form-control"
+                            placeholder="Enter your surname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupUsername" class="form-label">Username</label>
+                        <input type="text" name="username" id="signupUsername" class="form-control"
+                            placeholder="Choose a username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <input type="password" name="password" id="signupPassword" class="form-control"
+                            placeholder="Choose a password" required>
+                        <small class="form-text text-muted">Password must be at least 8 characters long and contain
+                            alphanumeric characters.</small>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">Signup</button>
+                </form>
+                <div id="signupMessage" class="text-danger mt-3 text-center" style="display: none;">
+                    Signup failed. Please try again.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../static/js/login.js"></script>
+</body>
+
+</html>
