@@ -26,7 +26,7 @@ def client():
     # 1) Create a tempfile to act as our database
     db_fd, db_path = tempfile.mkstemp(suffix=".db")
 
-    # 2) Tell Flask/test code to use this temp file instead of the real data.db
+    # 2) Tell code to use this temp file instead of the real data.db
     app.config['TESTING'] = True
     db_module.DATABASE = db_path
 
