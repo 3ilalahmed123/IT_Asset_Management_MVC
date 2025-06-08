@@ -42,4 +42,4 @@ def check_login_status():
         return redirect(url_for('home.index'))  # Redirect to home if logged in
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
