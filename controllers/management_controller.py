@@ -15,6 +15,8 @@ def admin_required():
 # Route for /management, get data from models and pass to management.html
 @management_bp.route('/')
 def index():
+    auth_check = admin_required() # Check if user is admin
+    if auth_check: return auth_check  # Deny access if not admin
     users = User.get_all_users()
     assets = Asset.get_all_assets()
     loans = Loan.get_all_loans()
@@ -24,6 +26,8 @@ def index():
 #API for record retreival
 @management_bp.route('/get-record/<record_type>/<int:record_id>', methods=['GET'])
 def get_record(record_type, record_id):
+    auth_check = admin_required() # Check if user is admin
+    if auth_check: return auth_check  # Deny access if not admin
     # For record type get the record from the respective model
     try:
         if record_type.lower() == "user":
@@ -45,6 +49,8 @@ def get_record(record_type, record_id):
 #API for record update
 @management_bp.route('/update-record/<record_type>/<int:record_id>', methods=['POST'])
 def update_record(record_type, record_id):
+    auth_check = admin_required() # Check if user is admin
+    if auth_check: return auth_check  # Deny access if not admin
     try:
         # Get record data from request body
         record_data = request.get_json()
@@ -61,8 +67,11 @@ def update_record(record_type, record_id):
     except Exception as e: #Catch any exception and return error
         return jsonify({"message": f"Error updating record: {e}"}), 500
 
+#API for record creation
 @management_bp.route('/add-record/<record_type>', methods=['POST'])
 def add_record(record_type):
+    auth_check = admin_required() # Check if user is admin
+    if auth_check: return auth_check  # Deny access if not admin
     try:
         # Get record data from the request body
         record_data = request.get_json()
@@ -80,9 +89,11 @@ def add_record(record_type):
     except Exception as e: #Catch any exception and return error
         return jsonify({"message": f"Error adding record: {e}"}), 500
 
-
+#API for record deletion
 @management_bp.route('/delete-record/<record_type>/<int:record_id>', methods=['POST'])
 def delete_record(record_type, record_id):
+    auth_check = admin_required() # Check if user is admin
+    if auth_check: return auth_check  # Deny access if not admin
     try:
         # For record type delete the record using the respective model
         if record_type.lower() == "user":
