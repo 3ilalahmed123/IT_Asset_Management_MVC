@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (recordType === "asset") {
                 recordOrder = "Name|Type|Status";
             } else if (recordType === "loan") {
-                recordOrder = "AssetID|UserID|LoanDate|DueDate|ReturnDate";
+                recordOrder = "AssetID|UserID|LoanDate|ReturnDate";
             }
 
             //For the record order in order create fields and add to modal form
