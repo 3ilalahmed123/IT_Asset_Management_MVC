@@ -30,7 +30,7 @@ class Loan:
         db = get_db()
         query = """
             INSERT INTO Loans (AssetID, UserID, LoanDate, ReturnDate)
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?)
         """
         db.execute(query, (data['AssetID'], data['UserID'], data['LoanDate'], data['ReturnDate']))
         db.commit()
