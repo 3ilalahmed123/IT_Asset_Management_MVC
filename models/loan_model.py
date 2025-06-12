@@ -29,10 +29,10 @@ class Loan:
     def add_loan(data):
         db = get_db()
         query = """
-            INSERT INTO Loans (AssetID, UserID, LoanDate, DueDate, ReturnDate)
+            INSERT INTO Loans (AssetID, UserID, LoanDate, ReturnDate)
             VALUES (?, ?, ?, ?, ?)
         """
-        db.execute(query, (data['AssetID'], data['UserID'], data['LoanDate'], data['DueDate'], data['ReturnDate']))
+        db.execute(query, (data['AssetID'], data['UserID'], data['LoanDate'], data['ReturnDate']))
         db.commit()
 
     #Update Loan using Loan ID and passed in data
