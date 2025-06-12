@@ -8,7 +8,6 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     if 'logged_in' in session:
         return redirect(url_for('home.index'))
-
     if request.method == 'POST':
         data = request.get_json()
         username = data.get("username")

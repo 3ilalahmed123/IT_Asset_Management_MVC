@@ -41,3 +41,23 @@ def client():
     # 5) Teardown: close & delete the temp file
     os.close(db_fd)
     os.unlink(db_path)
+    
+    
+@pytest.fixture
+def login_as_user(client):
+    """
+    Logs in as 'user1' before the test.
+    """
+    payload = {"username": "user1", "password": "password123"}
+    resp = client.post("/auth/login", json=payload)
+    assert resp.status_code == 200
+    
+    
+@pytest.fixture
+def login_as_admin(client):
+    """
+    Logs in as 'admin1' before the test.
+    """
+    payload = {"username": "admin1", "password": "password123"}
+    resp = client.post("/auth/login", json=payload)
+    assert resp.status_code == 200

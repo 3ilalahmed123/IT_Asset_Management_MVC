@@ -22,8 +22,6 @@ def test_signup_and_login(client):
     assert signup_data["message"] == "Signup successful"
 
     # 2. Log out (in case session is still set) then login as Alice
-    # Note: your logout endpoint is @auth_bp.route('logout'), missing a leading slash.
-    # If it's actually "/auth/logout", adjust accordingly. Here we'll assume "/auth/logout":
     client.get("/auth/logout")
 
     login_payload = {
@@ -61,3 +59,16 @@ def test_login_invalid_credentials(client):
     assert resp.status_code == 401
     data = resp.get_json()
     assert data["message"] == "Invalid credentials"
+
+def test_signup_existing_username(client):
+    # user1 is already in the database according to schema.sql
+    payload = {
+        "forename": "New",
+        "surname": "User",
+        "username": "user1",  # This username already exists in the test data
+        "password": "Password1"
+    }
+    resp = client.post("/auth/signup", json=payload)
+    assert resp.status_code == 400
+    data = resp.get_json()
+    assert "Username might already be taken" in data["message"]
