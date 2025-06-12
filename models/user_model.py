@@ -52,10 +52,10 @@ class User:
         db.commit()
 
     #Delete User by ID
-        @staticmethod
-        def delete_user(user_id):
-            db = get_db()
-            query = "DELETE FROM Users WHERE UserID = ?"
-            db.execute(query, (user_id,))
-            db.commit()
+    @staticmethod
+    def delete_user(user_id):
+        db = get_db()
+        query = "DELETE FROM Users WHERE UserID = ?"
+        db.execute(query, (user_id,))
+        db.commit()
 
