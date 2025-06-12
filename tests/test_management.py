@@ -4,7 +4,6 @@ import re
 def find_id_by_field(html, field_value):
     """
     Finds the ID (first <td>) in the row where any cell matches field_value.
-    This works for most simple HTML tables.
     """
     # Find all rows
     rows = re.findall(r'<tr.*?>(.*?)</tr>', html, re.DOTALL)
